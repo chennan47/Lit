@@ -43,3 +43,25 @@ class Test(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+#DP
+def is_match(s, p):
+    m = len(s)
+    n = len(p)
+
+    matched = [[False] * (n+1) for _ in xrange(m+1)]
+    matched[-1][-1] = True # Corner Case.
+    for i in xrange(n): # Corner Case.
+        if p != '*':
+            break
+        matched[-1] = True
+
+    for si in xrange(m):
+        for pi in xrange(n):
+            if s[si] == p[pi] or p[pi] == '?’:
+                matched[si][pi] = matched[si-1][pi-1]
+            elif p[pi] == '*’:
+                matched[si][pi] = matched[si][pi-1] or matched[si-1][pi]
+            else:
+                matched[si][pi] = False
+    return matched[m-1][n-1]
