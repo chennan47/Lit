@@ -6,6 +6,8 @@
 # number is power of 4 or not
 
 # Function to check if x is power of 4
+
+
 def isPowerOfFour(n):
     if (n == 0):
         return False
