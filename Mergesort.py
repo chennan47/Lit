@@ -43,3 +43,21 @@ def merge(self, nums1, m, nums2, n):
             n -= 1
     if n > 0:
         nums1[:n] = nums2[:n]
+
+
+def find_kth_smallest(self, nums1, nums2, k):
+    m, n = len(nums1), len(nums2)
+    if m > n:
+        return self.find_kth_smallest(nums2, nums1, k)
+
+    if not nums1:
+        return nums2[k - 1]
+    if k == 1:
+        return min(nums1[0], nums2[0])
+
+    i = min(k / 2, m)
+    j = min(k / 2, n)
+    if nums1[i - 1] > nums2[j - 1]:
+        return self.find_kth_smallest(nums1, nums2[j:], k - j)
+    else:
+        return self.find_kth_smallest(nums1[i:], nums2, k - i)
